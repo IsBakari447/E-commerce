@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f5f3ed">
+    <meta name="description" content="Lägg till och ändra produkter i butiken.">
+    <title>Hantera produkter — Form & Funktion</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <script type="module" src="js/admin.js"></script>
+  </head>
+
+  <body>
+    <!-- Den här länken gör det enklare att hoppa direkt till sidans innehåll. -->
+    <a class="skip-link" href="#main-content">Hoppa till innehållet</a>
+
+    <!-- Sidhuvudet innehåller logotypen och länkarna till butikens sidor. -->
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Form & Funktion, startsida">
+        <span class="brand-mark" aria-hidden="true">F.</span>
+        <span>form <span class="brand-amp">&</span> funktion</span>
+      </a>
+
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="primary-navigation"
+        aria-label="Öppna meny"
+      >
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="main-nav" id="primary-navigation" aria-label="Huvudmeny">
+        <a href="index.html" data-nav="home">Hem</a>
+        <a href="products.html" data-nav="products">Alla produkter</a>
+        <a href="favorites.html" data-nav="favorites">
+          Favoriter <span class="nav-count" id="favorite-count">0</span>
+        </a>
+        <a href="cart.html" data-nav="cart">
+          Varukorg <span class="nav-count" id="cart-count">0</span>
+        </a>
+        <a href="admin.html" data-nav="admin">Hantera produkter</a>
+      </nav>
+    </header>
+
+    <!-- Här visas meddelanden och formuläret för att hantera produkter. -->
+    <main id="main-content" tabindex="-1">
+      
+      <!-- JavaScript använder dessa ytor för status och laddningsmeddelanden. -->
+      <div
+        id="status-message"
+        class="status-message"
+        role="status"
+        aria-live="polite"
+        hidden
+      ></div>
+
+      <div
+        id="loading-message"
+        class="loading-message"
+        role="status"
+        aria-live="polite"
+        hidden
+      >
+        <span class="spinner" aria-hidden="true"></span>
+        <span id="loading-text">Laddar produkter...</span>
+      </div>
+
+      <div id="page-content">
+        <section class="page-shell">
+          <div class="page-heading">
+            <p class="eyebrow">Butikens produkter</p>
+            <h1>Hantera produkter</h1>
+            <p>Här kan du lägga till en produkt eller ändra sortimentet.</p>
+          </div>
+
+          <p class="admin-explainer">
+            Ändringar sparas inte permanent. Nya produkter och ändringar
+            visas bara lokalt i den här webbläsaren.
+          </p>
+
+          <div class="admin-layout">
+            <!-- Formuläret används både för att skapa och ändra en produkt. -->
+            <form class="admin-form" id="product-form">
+              <h2 id="form-heading">Lägg till en produkt</h2>
+              <input type="hidden" name="id">
+
+              <div class="form-field">
+                <label for="product-title">Produktnamn</label>
+                <input
+                  id="product-title"
+                  name="title"
+                  type="text"
+                  required
+                  maxlength="100"
+                >
+              </div>
+
+              <div class="form-field">
+                <label for="product-description">Beskrivning</label>
+                <textarea
+                  id="product-description"
+                  name="description"
+                  required
+                  maxlength="500"
+                ></textarea>
+              </div>
+
+              <div class="form-field">
+                <label for="product-price">Pris i dollar (USD)</label>
+                <input
+                  id="product-price"
+                  name="price"
+                  type="number"
+                  min="0.01"
+                  step="0.01"
+                  required
+                >
+              </div>
+
+              <div class="form-field">
+                <label for="product-category">Kategori</label>
+                <select id="product-category" name="category" required>
+                  <option value="">Välj en kategori</option>
+                </select>
+              </div>
+
+              <div class="form-field">
+                <label for="product-image">Länk till en bild (valfritt)</label>
+                <input
+                  id="product-image"
+                  name="thumbnail"
+                  type="url"
+                  placeholder="https://..."
+                >
+              </div>
+
+              <div class="form-actions">
+                <button class="button" type="submit">Skapa produkt</button>
+                <button
+                  class="button secondary"
+                  type="button"
+                  id="cancel-edit"
+                  hidden
+                >
+                  Avbryt
+                </button>
+              </div>
+            </form>
+
+            <!-- JavaScript visar produkterna här och lägger till knappar för redigering. -->
+            <section class="admin-products" aria-labelledby="admin-list-title">
+              <h2 id="admin-list-title">Produktlista</h2>
+              <div class="admin-list" id="admin-list"></div>
+            </section>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Sidfoten innehåller länkar, kontaktuppgifter och information om projektet. -->
+    <footer class="site-footer">
+      <div class="footer-columns">
+        <div class="footer-about">
+          <a class="brand footer-brand" href="index.html">
+            <span class="brand-mark" aria-hidden="true">F.</span>
+            <span>form <span class="brand-amp">&</span> funktion</span>
+          </a>
+          <p>En enkel webbutik byggd som kursprojekt.</p>
+        </div>
+
+        <nav class="footer-links" aria-label="Butik">
+          <h2>Butik</h2>
+          <a href="products.html">Alla produkter</a>
+          <a href="favorites.html">Favoriter</a>
+          <a href="cart.html">Varukorg</a>
+          <a href="admin.html">Hantera produkter</a>
+        </nav>
+
+        <div class="footer-contact">
+          <h2>Kontakt</h2>
+          <a href="mailto:support@form.function.se">support@form.function.se</a>
+          <a href="tel:+46712345678">071-234 56 78</a>
+        </div>
+
+        <div class="footer-info">
+          <h2>Information</h2>
+          <p>Produkterna laddas från en extern tjänst.</p>
+          <p>Köp på webbplatsen är endast simulerade.</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 Form & Funktion</span>
+        <span>Skolprojekt – inga riktiga beställningar eller betalningar görs.</span>
+      </div>
+    </footer>
+  </body>
+</html>
